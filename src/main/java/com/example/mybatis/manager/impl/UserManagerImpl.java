@@ -40,4 +40,19 @@ public class UserManagerImpl implements UserManager {
     public List<UserModel> queryByCondition(UserModel userModel) {
         return userDao.queryByCondition(ConvertUtils.convert(userModel, UserDo.class)).stream().map(userDo -> ConvertUtils.convert(userDo, UserModel.class)).collect(Collectors.toList());
     }
+
+    @Override
+    public List<UserModel> queryByPriorityCondition(UserModel userModel) {
+        return userDao.queryByPriorityCondition(ConvertUtils.convert(userModel, UserDo.class)).stream().map(userDo -> ConvertUtils.convert(userDo, UserModel.class)).collect(Collectors.toList());
+    }
+
+    @Override
+    public Integer deleteByIds(List<Long> ids) {
+        return userDao.deleteByIds(ids);
+    }
+
+    @Override
+    public Integer batchInsert(List<UserModel> userModels) {
+        return userDao.batchInsert(userModels.stream().map(userModel->ConvertUtils.convert(userModel, UserDo.class)).collect(Collectors.toList()));
+    }
 }

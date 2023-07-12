@@ -13,6 +13,12 @@
         values (#{name}, #{email}, #{phone}, NOW(), NOW())
     </insert>
 
+    <insert id="batchInsert">
+        insert int user values (name, email, phone, gmt_create, gmt_modified)
+        <foreach collection="userDos" item="user" separator=",">
+            (user.name, user.email, user.phone, NOW(), NOW())
+        </foreach>
+    </insert>
 
     <delete id="deleteByName">
         delete
@@ -51,6 +57,11 @@
             </choose>
         </where>
     </select>
+
+    <delete id="deleteByIds">
+        delete from user where id in
+        <foreach collection="ids" item="id" open="(" separator="," close=")">#{id}</foreach>
+    </delete>
 
     <resultMap id="userResultMap" type="UserDo">
         <id property="id" column="id"/>

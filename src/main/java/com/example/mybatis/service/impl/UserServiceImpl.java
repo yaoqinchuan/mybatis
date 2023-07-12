@@ -1,5 +1,7 @@
 package com.example.mybatis.service.impl;
 
+import com.example.mybatis.common.ConvertUtils;
+import com.example.mybatis.dto.UserDo;
 import com.example.mybatis.manager.impl.UserManagerImpl;
 import com.example.mybatis.model.UserModel;
 import com.example.mybatis.service.UserService;
@@ -7,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -36,5 +39,19 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserModel> queryByCondition(UserModel userModel) {
         return userManagerImpl.queryByCondition(userModel);
+    }
+
+    @Override
+    public List<UserModel> queryByPriorityCondition(UserModel userModel) {
+        return userManagerImpl.queryByPriorityCondition(userModel);
+    }
+
+    @Override
+    public Integer deleteByIds(List<Long> ids) {
+        return userManagerImpl.deleteByIds(ids);
+    }
+
+    public Integer batchInsert(List<UserModel> userModels){
+        return userManagerImpl.batchInsert(userModels);
     }
 }

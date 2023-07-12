@@ -30,7 +30,10 @@ public class UserController {
     public CommonResult<Long> insert(@RequestBody UserModel userModel) {
         return CommonResult.success(userServiceImpl.insertUserUseGeneratedKeys(userModel));
     }
-
+    @RequestMapping(path = "/batch", method = RequestMethod.POST)
+    public CommonResult<Integer> insert(@RequestBody List<UserModel> userModels) {
+        return CommonResult.success(userServiceImpl.batchInsert(userModels));
+    }
     @RequestMapping(path = "", method = RequestMethod.PUT)
     public CommonResult<Integer> update(@RequestBody UserModel userModel) {
         UserControllerValidator.updateValidator(userModel);
@@ -41,8 +44,13 @@ public class UserController {
     public CommonResult<List<UserModel>> getByCondition(@RequestBody UserModel userModel) {
         return CommonResult.success(userServiceImpl.queryByCondition(userModel));
     }
-    @RequestMapping(path = "/contion", method = RequestMethod.GET)
+    @RequestMapping(path = "/merge/condition", method = RequestMethod.GET)
     public CommonResult<List<UserModel>> getByPriorityCondition(@RequestBody UserModel userModel) {
-        return CommonResult.success(userServiceImpl.queryByCondition(userModel));
+        return CommonResult.success(userServiceImpl.queryByPriorityCondition(userModel));
     }
+    @RequestMapping(path = "/ids", method = RequestMethod.DELETE)
+    public CommonResult<Integer> deleteByIds(@RequestParam(name = "ids") List<Long> ids) {
+        return CommonResult.success(userServiceImpl.deleteByIds(ids));
+    }
+
 }
