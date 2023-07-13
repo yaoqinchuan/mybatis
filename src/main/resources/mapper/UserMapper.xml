@@ -3,9 +3,9 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.mybatis.mapper.UserMapper">
-    <select id="getAll" resultMap="userResultMap">
-        select *
-        from user;
+    <select id="getAll" resultMap="userAndAddressResultMap">
+        select u.*,a.id as aid , a.zip_code as zip_code, a.address as address, a.gmt_create as a_gmt_create,  a.gmt_modified as a_gmt_modified
+        from user u left join user_address a on u.address_id = a.id;
     </select>
     <!--useGeneratedKeys使用自动生成的主键， keyProperty将主键赋值的对象 -->
     <insert id="insertUserUseGeneratedKeys" useGeneratedKeys="true" parameterType="UserDo" keyProperty="id">
@@ -45,8 +45,9 @@
         </where>
     </select>
 
-    <select id="queryByPriorityCondition" resultMap="userResultMap">
-        select * from user
+    <select id="queryByPriorityCondition" resultMap="userAssociationAddressResultMap">
+        select u.*,a.id as aid , a.zip_code as zip_code, a.address as address, a.gmt_create as a_gmt_create,  a.gmt_modified as a_gmt_modified
+        from user u left join user_address a on u.address_id = a.id
         <where>
             <choose>
                 <when test="id != null and id != ''">id=#{id}</when>
@@ -63,12 +64,55 @@
         <foreach collection="ids" item="id" open="(" separator="," close=")">#{id}</foreach>
     </delete>
 
+    <resultMap id="userAndAddressResultMap" type="UserDo">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="email" column="email"/>
+        <result property="phone" column="phone"/>
+        <result property="gmtCreate" column="gmt_create"/>
+        <result property="gmtModified" column="gmt_modified"/>
+        <result property="userAddress.id" column="aid" />
+        <result property="userAddress.zipCode" column="zip_code"/>
+        <result property="userAddress.address" column="address"/>
+        <result property="userAddress.gmtCreate" column="a_gmt_create"/>
+        <result property="userAddress.gmtModified" column="a_gmt_modified"/>
+    </resultMap>
+
+    <resultMap id="userAssociationAddressResultMap" type="UserDo">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="email" column="email"/>
+        <result property="phone" column="phone"/>
+        <result property="gmtCreate" column="gmt_create"/>
+        <result property="gmtModified" column="gmt_modified"/>
+        <association property="userAddress" javaType="UserAddressDo">
+            <result property="id" column="aid" />
+            <result property="zipCode" column="zip_code"/>
+            <result property="address" column="address"/>
+            <result property="gmtCreate" column="a_gmt_create"/>
+            <result property="gmtModified" column="a_gmt_modified"/>
+        </association>
+    </resultMap>
+
+    <resultMap id="userAssociationStepAddressResultMap" type="UserDo">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="email" column="email"/>
+        <result property="phone" column="phone"/>
+        <result property="gmtCreate" column="gmt_create"/>
+        <result property="gmtModified" column="gmt_modified"/>
+        <association property="clazz"
+                     select="com.chf.mapper.ClassMapper.selectByIdStep2"
+                     column="cid"
+        />
+    </resultMap>
+
     <resultMap id="userResultMap" type="UserDo">
         <id property="id" column="id"/>
         <result property="name" column="name"/>
         <result property="email" column="email"/>
         <result property="phone" column="phone"/>
-        <result property="gmt_create" column="gmtCreate"/>
-        <result property="gmt_modified" column="gmtModified"/>
+        <result property="gmtCreate" column="gmt_create"/>
+        <result property="gmtModified" column="gmt_modified"/>
     </resultMap>
 </mapper>

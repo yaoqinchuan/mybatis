@@ -3,7 +3,7 @@ package com.example.mybatis.model;
 import com.example.mybatis.dto.UserAddressDo;
 import lombok.Data;
 
-import java.util.List;
+import java.util.Date;
 
 @Data
 public class UserModel {
@@ -11,5 +11,7 @@ public class UserModel {
     private Long id;
     private String email;
     private String phone;
-    private List<UserAddressDo> userAddresses;
+    private UserAddressDo userAddress;
+    private Date gmtCreate;
+    private Date gmtModified;
 }

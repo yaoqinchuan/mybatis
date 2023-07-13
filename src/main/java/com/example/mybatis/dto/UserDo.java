@@ -3,7 +3,6 @@ package com.example.mybatis.dto;
 import lombok.Data;
 
 import java.util.Date;
-import java.util.List;
 
 @Data
 public class UserDo {
@@ -11,7 +10,7 @@ public class UserDo {
     private String name;
     private String email;
     private String phone;
-    private List<UserAddressDo> userAddresses;
+    private UserAddressDo userAddress;
     private Date gmtCreate;
     private Date gmtModified;
 }
