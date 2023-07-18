@@ -1,8 +1,6 @@
 package com.example.mybatis.manager;
 
-import com.example.mybatis.dto.UserDo;
 import com.example.mybatis.model.UserModel;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 

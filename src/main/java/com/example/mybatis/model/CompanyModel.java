@@ -6,13 +6,12 @@ import java.util.Date;
 import java.util.List;
 
 @Data
-public class UserModel {
-    private String name;
+public class CompanyModel {
     private Long id;
-    private String email;
-    private String phone;
-    private UserModel userAddress;
-    private List<CompanyModel> scoreModels;
+    private String name;
+    private Date createTime;
+    private Long workerCount;
+    private List<UserModel> userList;
     private Date gmtCreate;
     private Date gmtModified;
 }

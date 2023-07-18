@@ -1,6 +1,5 @@
 package com.example.mybatis.service;
 
-import com.example.mybatis.dto.UserDo;
 import com.example.mybatis.model.UserModel;
 
 import java.util.List;

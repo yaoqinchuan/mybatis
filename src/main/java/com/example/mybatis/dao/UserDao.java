@@ -2,7 +2,6 @@ package com.example.mybatis.dao;
 
 import com.example.mybatis.dto.UserDo;
 import com.example.mybatis.mapper.UserMapper;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
